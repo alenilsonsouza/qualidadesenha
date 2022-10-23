@@ -1,5 +1,6 @@
 const passwordEl = document.querySelector('#password');
 const liEl = document.querySelectorAll('li');
+const button = document.querySelector('button');
 
 const digits = document.querySelector('.digits');
 const upper = document.querySelector('.upper');
@@ -10,13 +11,14 @@ const sc = document.querySelector('.sc');
 const hasUpper = (text) => /[A-Z]/.test(text);
 const hasLower = (text) => /[a-z]/.test(text);
 const hasNumber = (text) => /[0-9]/.test(text);
-const hasSpecialChar = (text) => /[@!\#$%¨&*?=()+-\[\]/\\^]/.test(text);
+const hasSpecialChar = (text) => /[@#!$%¨&*?=()+-/\\^]/.test(text);
 
 passwordEl.addEventListener('keyup', e => {
 
     let length = e.target.value.length;
     let text = e.target.value;
 
+    let q = 0;
     // Quantidade de caracteres
     length >= 8?digits.classList.add('success'):digits.classList.remove('success');
 
@@ -31,5 +33,12 @@ passwordEl.addEventListener('keyup', e => {
 
     // VErificar sem caracteres Especiais
     hasSpecialChar(text)?sc.classList.add('success'):sc.classList.remove('success');
+
+    if(length >= 8 && hasUpper(text) && hasLower(text) && hasNumber(text) && hasSpecialChar(text)) {
+        button.removeAttribute('disabled');
+    }else {
+        button.disabled = 'disabled';
+    }
+
 
 });
